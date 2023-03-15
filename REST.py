@@ -1,5 +1,5 @@
 import cherrypy
-import cherrypy_cors
+#import cherrypy_cors
 
 @cherrypy.expose
 class MyController(object):
@@ -57,35 +57,39 @@ class MyController(object):
     @cherrypy.tools.json_in()
     @cherrypy.tools.json_out()
     def POST(self):
-    #def POST(self, *args, **kwargs):
         data = cherrypy.request.json
-        print("data:")
-        print(data)
-        #print("*args:")
-        #print(*args)        
+        self.dischi.append(data)
         return {}
 
 
+    @cherrypy.tools.json_out()
     def PUT(self, id=-1, **kwargs):
         #TODO
         return int(id)
 
 
+    @cherrypy.tools.json_out()
     def DELETE(self, id=-1):
-        self.dischi.pop(int(id))
+        index = -1
+        for d in range(0, len(self.dischi)) :
+            if self.dischi[d]["id"] == int(id):
+                index = d
+                break
+        if index != -1:
+            self.dischi.pop(index)
         return 0
 
 
-#if __name__ == '__main__':
-conf = {
-    '/': {
-        'request.dispatch': cherrypy.dispatch.MethodDispatcher(),
-        'tools.sessions.on': True,
-        'tools.response_headers.on': True,
-        'tools.response_headers.headers': [('Content-Type', 'application/json')]
-        #devo aggiungere l'header "Access-Control-Allow-Origin" per abilitare le richieste da un dominio differente
-        #'tools.response_headers.headers': [('Content-Type', 'application/json'), ('Access-Control-Allow-Origin', '*')]
-    }
-}  
+if __name__ == '__main__':
+    conf = {
+        '/': {
+            'request.dispatch': cherrypy.dispatch.MethodDispatcher(),
+            'tools.sessions.on': True,
+            'tools.response_headers.on': True,
+            'tools.response_headers.headers': [('Content-Type', 'application/json')]
+            #devo aggiungere l'header "Access-Control-Allow-Origin" per abilitare le richieste da un dominio differente
+            #'tools.response_headers.headers': [('Content-Type', 'application/json'), ('Access-Control-Allow-Origin', '*')]
+        }
+    }  
 
-cherrypy.quickstart(MyController(), '/dischi', conf)
+    cherrypy.quickstart(MyController(), '/dischi', conf)
