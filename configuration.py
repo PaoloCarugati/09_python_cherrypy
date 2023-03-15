@@ -2,7 +2,7 @@ import cherrypy
 
 class Root(object):
     @cherrypy.expose
-    def index(self):
+    def index2(self):
         return "index"
 
 #questo if significa che esegue il blocco se il file è eseguito come script ma non se è importato come modulo
@@ -17,7 +17,7 @@ if __name__ == '__main__':
     }
 
     #cherrypy.config.update({'server.socket_host': '64.72.221.48'})
-    cherrypy.config.update({'server.socket_port': 80})
+    #cherrypy.config.update({'server.socket_port': 80})
 
     cherrypy.quickstart(Root(), '/', conf)
  

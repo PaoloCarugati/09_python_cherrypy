@@ -4,13 +4,13 @@ class Root(object):
     @cherrypy.expose
     def html(self):
         #se non specifico nulla per quanto riguarda il content type si assume che sia in formato HTML
-        return "html"
+        return "<i>html</i>"
     
     @cherrypy.expose
     def plaintext(self):
         #questa è l'impostazione per il content type in formato testo
         cherrypy.response.headers['Content-Type'] = "text/plain"
-        return "plaintext"
+        return "<i>plaintext</i>"
 
     @cherrypy.expose
     @cherrypy.tools.json_out() #NOTA: ricordarsi di aggiungere questo decoratore se vogliamo l'output in formato json!!!

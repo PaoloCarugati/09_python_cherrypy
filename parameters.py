@@ -6,7 +6,7 @@ class Root(object):
     #def index(self, param):
         html = """
             <h1>index</h1>
-            <p>
+            <p style='font-size: 22px;'>
                 param = """, param, "</p>"
         return html
 
